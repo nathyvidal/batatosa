@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batatosa - Batatas Recheadas Premium</title>
+    <!-- Google Fonts: Fredoka para títulos divertidos e Montserrat para corpo do texto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS para estilização moderna e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Custom Configuration para injetar as cores do Manual da Batatosa -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cheddar: '#FFA800',
+                        paprika: '#C8102E',
+                        rust: '#5C3A21',
+                        cream: '#FDFBF7',
+                        'cream-dark': '#F5F0E6'
+                    },
+                    fontFamily: {
+                        brand: ['Fredoka', 'sans-serif'],
+                        body: ['Montserrat', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'cartoon': '4px 4px 0px 0px #5C3A21',
+                        'cartoon-lg': '8px 8px 0px 0px #5C3A21',
+                        'cartoon-sm': '2px 2px 0px 0px #5C3A21'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome para Ícones rápidos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FDFBF7;
+            color: #5C3A21;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Fredoka', sans-serif;
+        }
+        /* Custom scrollbar matching brand colors */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDFBF7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFA800;
+            border-radius: 5px;
+            border: 2px solid #FDFBF7;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C8102E;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<!-- Header Principal -->
+<header class="sticky top-0 z-40 bg-cream/95 backdrop-blur-md border-b-4 border-rust transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo Batatosa -->
+            <a href="#" class="flex items-center space-x-2 group">
+                <!-- Mini Tato SVG logo -->
+                <svg class="w-10 h-10 transform group-hover:rotate-12 transition-transform duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="50" cy="55" rx="35" ry="30" fill="#D29A53" stroke="#5C3A21" stroke-width="5"/>
+                    <circle cx="40" cy="48" r="4" fill="#5C3A21"/>
+                    <circle cx="60" cy="48" r="4" fill="#5C3A21"/>
+                    <!-- Sorriso de queijo -->
+                    <path d="M 38 60 Q 50 72 62 60" stroke="#5C3A21" stroke-width="4" stroke-linecap="round" fill="none"/>
+                    <!-- Gota de Cheddar -->
+                    <path d="M 59 62 Q 58 72 63 70 Q 65 64 61 61" fill="#FFA800" stroke="#5C3A21" stroke-width="1.5"/>
+                    <!-- Chapéu de Chef simplificado -->
+                    <path d="M 35 28 C 30 20, 42 12, 50 18 C 58 12, 70 20, 65 28 Z" fill="#FFFFFF" stroke="#5C3A21" stroke-width="4" stroke-linejoin="round"/>
+                    <rect x="38" y="24" width="24" height="6" fill="#FFFFFF" stroke="#5C3A21" stroke-width="3"/>
+                </svg>
+                <div class="flex flex-col">
+                    <span class="text-2xl sm:text-3xl font-bold text-paprika tracking-tight leading-none">Batatosa</span>
+                    <span class="text-[10px] tracking-widest text-rust uppercase font-bold">Batatas Recheadas</span>
+                </div>
+            </a>
+
+            <!-- Navegação Desktop -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#inicio" class="text-rust hover:text-paprika font-bold transition-colors">Início</a>
+                <a href="#cardapio" class="text-rust hover:text-paprika font-bold transition-colors">Cardápio</a>
+                <a href="#tato" class="text-rust hover:text-paprika font-bold transition-colors">Conheça o Tato</a>
+                <a href="#sobre" class="text-rust hover:text-paprika font-bold transition-colors">Sobre Nós</a>
+                <a href="#depoimentos" class="text-rust hover:text-paprika font-bold transition-colors">Opiniões</a>
+            </nav>
+
+            <!-- Ações e Botão de Carrinho -->
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleCart()" class="relative bg-cheddar hover:bg-amber-400 text-rust font-bold px-4 py-2 rounded-full border-2 border-rust shadow-cartoon hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-cartoon-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-basket-shopping text-lg"></i>
+                    <span class="hidden sm:inline">Sacola</span>
+                    <span id="cart-count-badge" class="absolute -top-2 -right-2 bg-paprika text-white text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-rust font-bold">0</span>
+                </button>
+                
+                <!-- Hamburguer Menu para Mobile -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-rust focus:outline-none text-2xl">
+                    <i id="menu-icon" class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-cream border-t-4 border-rust px-4 py-4 space-y-3">
+        <a href="#inicio" onclick="toggleMobileMenu()" class="block text-rust hover:bg-cream-dark p-2 rounded font-bold">Início</a>
+        <a href="#cardapio" onclick="toggleMobileMenu()" class="block text-rust hover:bg-cream-dark p-2 rounded font-bold">Cardápio</a>
+        <a href="#tato" onclick="toggleMobileMenu()" class="block text-rust hover:bg-cream-dark p-2 rounded font-bold">Conheça o Tato</a>
+        <a href="#sobre" onclick="toggleMobileMenu()" class="block text-rust hover:bg-cream-dark p-2 rounded font-bold">Sobre Nós</a>
+        <a href="#depoimentos" onclick="toggleMobileMenu()" class="block text-rust hover:bg-cream-dark p-2 rounded font-bold">Opiniões</a>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section id="inicio" class="relative py-12 md:py-24 overflow-hidden bg-gradient-to-b from-cream to-cream-dark border-b-4 border-rust">
+    <!-- Decorações de Fundo -->
+    <div class="absolute -top-12 -left-12 w-48 h-48 bg-cheddar opacity-20 rounded-full blur-2xl"></div>
+    <div class="absolute bottom-12 right-12 w-64 h-64 bg-paprika opacity-10 rounded-full blur-3xl"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Texto Hero -->
+            <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                <span class="inline-block bg-paprika text-white font-bold px-4 py-1.5 rounded-full text-xs sm:text-sm border-2 border-rust shadow-cartoon-sm uppercase tracking-wider animate-bounce">
+                    🔥 Quentinha & Super Recheada!
+                </span>
+                <h1 class="text-4xl sm:text-6xl font-extrabold text-rust leading-tight">
+                    A batata recheada que vai <span class="text-paprika underline decoration-cheddar decoration-wavy">conquistar o seu coração</span>!
+                </h1>
+                <p class="text-lg text-rust/90 max-w-xl mx-auto lg:mx-0 font-medium">
+                    Experimente receitas premium transbordando cremosidade. Preparadas na hora com batatas gigantes rústicas selecionadas, queijo de verdade e muito carinho!
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
+                    <a href="#cardapio" class="bg-paprika hover:bg-red-700 text-white font-bold text-lg px-8 py-4 rounded-2xl border-4 border-rust shadow-cartoon hover:translate-x-1 hover:translate-y-1 hover:shadow-cartoon-sm transition-all flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-utensils"></i> Ver Cardápio
+                    </a>
+                    <a href="#tato" class="bg-cheddar hover:bg-amber-400 text-rust font-bold text-lg px-8 py-4 rounded-2xl border-4 border-rust shadow-cartoon hover:translate-x-1 hover:translate-y-1 hover:shadow-cartoon-sm transition-all flex items-center justify-center gap-2">
+                        Quem é o Tato? 🥔
+                    </a>
+                </div>
+                
+                <!-- Destaques rápidos -->
+                <div class="grid grid-cols-3 gap-4 pt-8 border-t-2 border-rust/10 max-w-md mx-auto lg:mx-0">
+                    <div class="text-center lg:text-left">
+                        <div class="text-2xl sm:text-3xl font-bold text-paprika">400g+</div>
+                        <div class="text-xs font-semibold text-rust/70">De Pura Fartura</div>
+                    </div>
+                    <div class="text-center lg:text-left">
+                        <div class="text-2xl sm:text-3xl font-bold text-cheddar">100%</div>
+                        <div class="text-xs font-semibold text-rust/70">Ingredientes Frescos</div>
+                    </div>
+                    <div class="text-center lg:text-left">
+                        <div class="text-2xl sm:text-3xl font-bold text-rust">Vapt-Vupt</div>
+                        <div class="text-xs font-semibold text-rust/70">Entrega Quentinha</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Imagem / Ilustração Hero do Tato Chef -->
+            <div class="lg:col-span-5 flex justify-center relative">
+                <!-- Círculo de Destaque -->
+                <div class="absolute w-72 h-72 sm:w-96 sm:h-96 bg-cheddar/20 rounded-full border-4 border-dashed border-rust/20 animate-[spin_60s_linear_infinite] -z-10"></div>
+                
+                <!-- Card Ilustrado do Mascote "Tato" -->
+                <div class="bg-cream p-6 sm:p-8 rounded-3xl border-4 border-rust shadow-cartoon-lg max-w-sm w-full relative">
+                    <!-- Selo de Qualidade -->
+                    <div class="absolute -top-6 -right-6 bg-cheddar text-rust font-bold p-3 rounded-full border-4 border-rust rotate-12 shadow-cartoon-sm text-center text-xs w-20 h-20 flex flex-col items-center justify-center leading-tight z-10">
+                        <span>Cheddar</span>
+                        <span class="text-paprika font-black text-sm">REAL</span>
+                    </div>
+
+                    <!-- Render Oficial da Identidade Visual e Mascote Tato -->
+                    <div class="w-full h-64 flex justify-center items-center bg-cream-dark rounded-2xl border-2 border-rust overflow-hidden mb-4 relative shadow-inner">
+                        <img src="watermarked_img_10289678573830330606.png" alt="Logo e Mascote Oficial da Batatosa" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500">
+                    </div>
+
+                    <!-- Balão de Fala do Tato -->
+                    <div class="text-center mt-3">
+                        <div class="text-sm font-bold bg-cream-dark p-2 rounded-xl border-2 border-rust inline-block relative">
+                            "Tato diz: Olha a nossa carinha oficial! 🥔💛"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção do Cardápio Interativo -->
+<section id="cardapio" class="py-16 md:py-24 bg-cream border-b-4 border-rust">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Cabeçalho de Seção -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <span class="text-paprika font-bold text-lg uppercase tracking-widest block">Nosso Cardápio</span>
+            <h2 class="text-3xl sm:text-5xl font-black text-rust">Escolha sua Batatosa Favorita!</h2>
+            <div class="w-24 h-2 bg-cheddar mx-auto rounded-full"></div>
+            <p class="text-rust/80 font-medium">
+                Selecione as categorias para filtrar. Todas as batatas vêm com base de purê de batata ultra cremoso, muçarela derretida e batata palha artesanal por cima!
+            </p>
+        </div>
+
+        <!-- Filtros de Categoria (Botões Interativos) -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <button onclick="filterMenu('todas')" id="btn-cat-todas" class="menu-tab-active font-brand text-lg px-6 py-3 rounded-2xl border-2 border-rust transition-all flex items-center gap-2">
+                🥔 Todas as Batatas
+            </button>
+            <button onclick="filterMenu('premium')" id="btn-cat-premium" class="menu-tab-inactive font-brand text-lg px-6 py-3 rounded-2xl border-2 border-rust transition-all flex items-center gap-2">
+                👑 Especiais Premium
+            </button>
+            <button onclick="filterMenu('classicas')" id="btn-cat-classicas" class="menu-tab-inactive font-brand text-lg px-6 py-3 rounded-2xl border-2 border-rust transition-all flex items-center gap-2">
+                🏠 Clássicas Imperdíveis
+            </button>
+            <button onclick="filterMenu('veggie')" id="btn-cat-veggie" class="menu-tab-inactive font-brand text-lg px-6 py-3 rounded-2xl border-2 border-rust transition-all flex items-center gap-2">
+                🌱 Vegetarianas
+            </button>
+        </div>
+
+        <!-- Estilos para botões ativos/inativos que serão aplicados dinamicamente via JS -->
+        <style>
+            .menu-tab-active {
+                background-color: #C8102E;
+                color: white;
+                box-shadow: 4px 4px 0px 0px #5C3A21;
+                transform: translate(0px, 0px);
+            }
+            .menu-tab-inactive {
+                background-color: #FDFBF7;
+                color: #5C3A21;
+                box-shadow: 2px 2px 0px 0px #5C3A21;
+            }
+            .menu-tab-inactive:hover {
+                background-color: #F5F0E6;
+                transform: translate(-1px, -1px);
+                box-shadow: 4px 4px 0px 0px #5C3A21;
+            }
+        </style>
+
+        <!-- Grid de Itens do Cardápio -->
+        <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Os itens serão populados via Javascript de forma limpa e dinâmica -->
+        </div>
+    </div>
+</section>
+
+<!-- Seção: Conheça o Mascote Tato -->
+<section id="tato" class="py-16 bg-cream-dark border-b-4 border-rust relative overflow-hidden">
+    <!-- Decoração -->
+    <div class="absolute -right-24 -bottom-24 w-80 h-80 bg-cheddar/20 rounded-full blur-3xl"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="bg-cream p-8 md:p-12 rounded-3xl border-4 border-rust shadow-cartoon-lg grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <!-- Mascote Tato Grande e Expressivo -->
+            <div class="lg:col-span-5 flex flex-col items-center text-center space-y-6">
+                <div class="bg-cream-dark p-6 rounded-2xl border-4 border-rust shadow-cartoon relative">
+                    <!-- Balão de Fala Dinâmico -->
+                    <div class="absolute -top-20 left-1/2 -translate-x-1/2 bg-cheddar text-rust font-bold px-6 py-3 rounded-2xl border-2 border-rust shadow-cartoon-sm w-64 text-center text-sm">
+                        <p id="tato-speech">"A casquinha rústica é onde está o sabor mais caseiro!" 🥔</p>
+                        <!-- Triângulo do balão -->
+                        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-cheddar border-r-2 border-b-2 border-rust rotate-45"></div>
+                    </div>
+
+                    <!-- Render do Mascote Tato Oficial focado no boneco 3D -->
+                    <div class="w-64 h-64 rounded-2xl border-4 border-rust overflow-hidden relative shadow-inner bg-cream flex justify-center items-center">
+                        <img src="watermarked_img_10289678573830330606.png" alt="Mascote Oficial Tato Chef" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500" style="object-position: 73% 15%;">
+                    </div>
+                </div>
+                
+                <button onclick="changeTatoQuote()" class="bg-cheddar hover:bg-amber-400 text-rust font-bold px-6 py-2.5 rounded-full border-2 border-rust shadow-cartoon hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-cartoon-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-comment-dots"></i> Pedir Conselho ao Tato!
+                </button>
+            </div>
+
+            <!-- História e Fatos Divertidos -->
+            <div class="lg:col-span-7 space-y-6">
+                <span class="bg-cheddar text-rust font-bold px-4 py-1.5 rounded-full text-xs sm:text-sm border-2 border-rust uppercase tracking-wider inline-block">
+                    Conheça nosso Mascote
+                </span>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-rust">
+                    Eu sou o <span class="text-paprika font-brand">Tato</span>, o Chef Especialista em Cremosidade!
+                </h3>
+                <p class="text-rust/90 text-base sm:text-lg leading-relaxed font-medium">
+                    Meu trabalho é garantir que sua Batatosa venha transbordando o melhor recheio do mundo. Eu seleciono pessoalmente as batatas rústicas mais rechonchudas da horta, lavo com escovinha, asso até ficarem com a casca rústica douradinha e depois misturo o purê com muito requeijão cremoso e manteiga. 
+                </p>
+                
+                <!-- Cards de segredos do Tato -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                    <div class="bg-cream-dark p-4 rounded-xl border-2 border-rust flex gap-3">
+                        <div class="text-2xl">👨‍🍳</div>
+                        <div>
+                            <h4 class="font-bold text-rust">Supervisão Estrita</h4>
+                            <p class="text-xs text-rust/80 font-medium">Nenhuma batata sai da cozinha sem o selo de cremosidade aprovado.</p>
+                        </div>
+                    </div>
+                    <div class="bg-cream-dark p-4 rounded-xl border-2 border-rust flex gap-3">
+                        <div class="text-2xl">🌱</div>
+                        <div>
+                            <h4 class="font-bold text-rust">Sustentabilidade</h4>
+                            <p class="text-xs text-rust/80 font-medium">Trabalhamos com produtores locais que cuidam do solo e do meio ambiente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Seção: Sobre Nós / Nossa Cozinha -->
+<section id="sobre" class="py-16 md:py-24 bg-cream border-b-4 border-rust">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Texto Institucional -->
+            <div class="lg:col-span-6 space-y-6 order-2 lg:order-1">
+                <span class="text-paprika font-bold text-lg uppercase tracking-widest block">Nossa História</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-rust">Como criamos a Batata Perfeita</h2>
+                <div class="w-20 h-2 bg-cheddar rounded-full"></div>
+                
+                <p class="text-rust/80 font-medium text-base sm:text-lg">
+                    A Batatosa nasceu com um objetivo muito simples: revolucionar a forma como as pessoas veem a batata recheada. Em vez de uma refeição comum, decidimos transformá-la em um festival de sabores, cremosidade extrema e felicidade servida na hora.
+                </p>
+                <p class="text-rust/80 font-medium">
+                    Nossa cozinha funciona como um laboratório de delícias artesanais. Buscamos harmonizar queijos nobres de alta fusão, temperos secretos que ressaltam o sabor e carnes selecionadas preparadas lentamente para desmanchar na boca.
+                </p>
+
+                <!-- Ícones de Diferenciais -->
+                <div class="grid grid-cols-2 gap-4 pt-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-cheddar rounded-full border-2 border-rust flex items-center justify-center text-xl text-rust font-bold">✓</div>
+                        <span class="font-bold text-sm text-rust">Higiene Absoluta</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-paprika rounded-full border-2 border-rust flex items-center justify-center text-xl text-white font-bold">✓</div>
+                        <span class="font-bold text-sm text-rust">Recheio até a borda</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-rust rounded-full border-2 border-rust flex items-center justify-center text-xl text-cream font-bold">✓</div>
+                        <span class="font-bold text-sm text-rust">Embalagem Térmica</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-emerald-500 rounded-full border-2 border-rust flex items-center justify-center text-xl text-white font-bold">✓</div>
+                        <span class="font-bold text-sm text-rust">Opções Veggies</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Imagem e Simulador de Frete -->
+            <div class="lg:col-span-6 order-1 lg:order-2">
+                <!-- Caixa de Simulador de Entrega -->
+                <div class="bg-cream-dark p-6 sm:p-8 rounded-3xl border-4 border-rust shadow-cartoon">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-truck-ramp-box text-3xl text-paprika"></i>
+                        <h3 class="text-2xl font-bold text-rust">Consulte sua Região</h3>
+                    </div>
+                    <p class="text-sm text-rust/80 font-medium mb-6">
+                        Insira seu bairro para simular o tempo de entrega e a taxa de frete da nossa central de delícias:
+                    </p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-rust uppercase mb-1">Selecione seu Bairro:</label>
+                            <select id="bairro-select" onchange="calcularFrete()" class="w-full bg-cream p-3 rounded-xl border-2 border-rust focus:outline-none font-medium">
+                                <option value="">-- Escolha um bairro --</option>
+                                <option value="centro">Centro - 20min (Frete Grátis)</option>
+                                <option value="jardins">Jardins - 30min (Taxa: R$ 4,00)</option>
+                                <option value="oeste">Zona Oeste - 40min (Taxa: R$ 7,00)</option>
+                                <option value="sul">Zona Sul - 45min (Taxa: R$ 8,50)</option>
+                                <option value="leste">Zona Leste - 35min (Taxa: R$ 5,00)</option>
+                            </select>
+                        </div>
+
+                        <!-- Painel de Resultado do Frete -->
+                        <div id="frete-resultado" class="hidden bg-cream p-4 rounded-xl border-2 border-rust space-y-2 animate-pulse">
+                            <div class="flex justify-between font-bold">
+                                <span>Tempo Estimado:</span>
+                                <span id="frete-tempo" class="text-paprika">-</span>
+                            </div>
+                            <div class="flex justify-between font-bold">
+                                <span>Custo de Entrega:</span>
+                                <span id="frete-valor" class="text-cheddar">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Seção: Opiniões de quem já comeu -->
+<section id="depoimentos" class="py-16 md:py-24 bg-cream-dark border-b-4 border-rust">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Cabeçalho -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <span class="text-paprika font-bold text-lg uppercase tracking-widest block">Avaliações</span>
+            <h2 class="text-3xl sm:text-5xl font-black text-rust">O que nossos clientes dizem</h2>
+            <div class="w-20 h-2 bg-cheddar mx-auto rounded-full"></div>
+            <p class="text-rust/80 font-medium">
+                Mais do que clientes, fazemos amigos viciados em queijo derretido e purê cremoso!
+            </p>
+        </div>
+
+        <!-- Grid de Depoimentos -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Depoimento 1 -->
+            <div class="bg-cream p-6 rounded-2xl border-2 border-rust shadow-cartoon flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="flex text-yellow-500 gap-1">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-rust/90 italic font-medium">
+                        "Estou chocada com a quantidade de recheio! Pedi a Batatosa Suprema e quase não dei conta de terminar sozinha. Extremamente cremosa e o requeijão é muito premium!"
+                    </p>
+                </div>
+                <div class="flex items-center gap-3 mt-6 pt-4 border-t-2 border-rust/10">
+                    <img src="https://placehold.co/100x100/FFA800/FFFFFF?text=MA" alt="Mariana Alencar" class="w-10 h-10 rounded-full border-2 border-rust" onerror="this.src='https://placehold.co/100x100/CCCCCC/666666?text=User'">
+                    <div>
+                        <h4 class="font-bold text-rust text-sm">Mariana Alencar</h4>
+                        <span class="text-xs text-rust/60">Cliente via Delivery</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Depoimento 2 -->
+            <div class="bg-cream p-6 rounded-2xl border-2 border-rust shadow-cartoon flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="flex text-yellow-500 gap-1">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-rust/90 italic font-medium">
+                        "O Tato realmente não brinca em serviço! Essa batata rústica com queijo derretido salvou meu domingo de preguiça. Chegou super quentinha na embalagem protetora."
+                    </p>
+                </div>
+                <div class="flex items-center gap-3 mt-6 pt-4 border-t-2 border-rust/10">
+                    <img src="https://placehold.co/100x100/C8102E/FFFFFF?text=TL" alt="Thiago Lopes" class="w-10 h-10 rounded-full border-2 border-rust" onerror="this.src='https://placehold.co/100x100/CCCCCC/666666?text=User'">
+                    <div>
+                        <h4 class="font-bold text-rust text-sm">Thiago Lopes</h4>
+                        <span class="text-xs text-rust/60">Cliente Assíduo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Depoimento 3 -->
+            <div class="bg-cream p-6 rounded-2xl border-2 border-rust shadow-cartoon flex flex-col justify-between">
+                <div class="space-y-4">
+                    <div class="flex text-yellow-500 gap-1">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star font-regular"></i>
+                    </div>
+                    <p class="text-rust/90 italic font-medium">
+                        "Fiquei muito feliz em ver opções vegetarianas ótimas! A Veggie-Melic é deliciosa, o brócolis veio bem temperado com um molho branco caseiro divino. Recomendo muito!"
+                    </p>
+                </div>
+                <div class="flex items-center gap-3 mt-6 pt-4 border-t-2 border-rust/10">
+                    <img src="https://placehold.co/100x100/5C3A21/FFFFFF?text=BC" alt="Beatriz Costa" class="w-10 h-10 rounded-full border-2 border-rust" onerror="this.src='https://placehold.co/100x100/CCCCCC/666666?text=User'">
+                    <div>
+                        <h4 class="font-bold text-rust text-sm">Beatriz Costa</h4>
+                        <span class="text-xs text-rust/60">Veggie de Coração</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Carrinho Lateral Drawer (Slide Over) -->
+<div id="cart-drawer" class="fixed inset-y-0 right-0 max-w-full flex pl-10 z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+    <div class="w-screen max-w-md bg-cream border-l-4 border-rust flex flex-col">
+        <!-- Header da Sacola -->
+        <div class="p-6 border-b-2 border-rust bg-cream-dark flex items-center justify-between">
+            <h2 class="text-2xl font-bold text-rust flex items-center gap-2">
+                <i class="fa-solid fa-basket-shopping text-paprika"></i> Minha Sacola
+            </h2>
+            <button onclick="toggleCart()" class="text-rust hover:text-paprika text-2xl font-bold focus:outline-none">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Conteúdo Interno / Lista de Produtos -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Caso a sacola esteja vazia -->
+            <div id="cart-empty-message" class="text-center py-12 space-y-4">
+                <i class="fa-solid fa-box-open text-5xl text-rust/25"></i>
+                <p class="text-rust/70 font-bold">Sua sacola está vazia, que tal enchê-la com delícias do Tato?</p>
+                <a href="#cardapio" onclick="toggleCart()" class="inline-block bg-cheddar hover:bg-amber-400 text-rust font-bold px-4 py-2 rounded-xl border-2 border-rust shadow-cartoon-sm text-xs">
+                    Ver Batatosas
+                </a>
+            </div>
+
+            <!-- Lista de itens dinâmicos do carrinho via JS -->
+            <div id="cart-items-list" class="space-y-4"></div>
+        </div>
+
+        <!-- Rodapé do Carrinho com Totais e Botão de Finalização -->
+        <div id="cart-footer" class="p-6 border-t-2 border-rust bg-cream-dark space-y-4">
+            <!-- Totalizador -->
+            <div class="space-y-2 font-bold text-rust">
+                <div class="flex justify-between text-sm">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">R$ 0,00</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span>Taxa de Entrega:</span>
+                    <span id="cart-shipping">Calcular no Checkout</span>
+                </div>
+                <div class="flex justify-between text-lg border-t-2 border-rust/10 pt-2 text-paprika">
+                    <span>Total Estimado:</span>
+                    <span id="cart-total">R$ 0,00</span>
+                </div>
+            </div>
+
+            <!-- Formulário de Nome e Endereço Rápido -->
+            <div class="space-y-2">
+                <input type="text" id="order-name" placeholder="Seu Nome completo" class="w-full bg-cream p-2.5 rounded-lg border-2 border-rust text-xs font-semibold focus:outline-none">
+                <input type="text" id="order-address" placeholder="Endereço (Rua, Número, Bairro)" class="w-full bg-cream p-2.5 rounded-lg border-2 border-rust text-xs font-semibold focus:outline-none">
+            </div>
+
+            <!-- Botões de Ação -->
+            <button onclick="sendOrderToWhatsApp()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3.5 rounded-xl border-2 border-rust shadow-cartoon hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-cartoon-sm transition-all flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Finalizar via WhatsApp
+            </button>
+            <p class="text-[10px] text-center font-bold text-rust/60">
+                Seu pedido será formatado e enviado diretamente para nosso atendimento!
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay para escurecer o fundo ao abrir a Sacola -->
+<div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity"></div>
+
+<!-- Toast / Caixa de Notificação Customizada (Evitando Alert) -->
+<div id="custom-toast" class="fixed bottom-6 left-6 z-50 transform -translate-y-12 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-cream-dark border-4 border-rust shadow-cartoon-lg px-6 py-4 rounded-2xl flex items-center gap-4">
+        <div id="toast-icon-bg" class="w-10 h-10 rounded-full border-2 border-rust flex items-center justify-center text-lg text-white">
+            <i id="toast-icon" class="fa-solid fa-check"></i>
+        </div>
+        <div>
+            <h4 id="toast-title" class="font-bold text-rust text-sm">Sucesso!</h4>
+            <p id="toast-message" class="text-xs text-rust/80 font-medium">Item adicionado com sucesso!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer / Rodapé Geral -->
+<footer class="bg-rust text-cream pt-16 pb-8 border-t-4 border-rust">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 border-b-2 border-cream/15 pb-12 mb-8">
+            
+            <!-- Marca no Rodapé -->
+            <div class="md:col-span-4 space-y-4">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="50" cy="55" rx="35" ry="30" fill="#FFA800" stroke="#FFFFFF" stroke-width="4"/>
+                        <circle cx="40" cy="48" r="4" fill="#FFFFFF"/>
+                        <circle cx="60" cy="48" r="4" fill="#FFFFFF"/>
+                        <path d="M 38 60 Q 50 72 62 60" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+                        <path d="M 35 28 C 30 20, 42 12, 50 18 C 58 12, 70 20, 65 28 Z" fill="#FFFFFF"/>
+                    </svg>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-bold text-cheddar tracking-tight leading-none font-brand">Batatosa</span>
+                        <span class="text-[9px] tracking-widest text-cream-dark uppercase font-bold">Batatas Recheadas</span>
+                    </div>
+                </div>
+                <p class="text-cream/80 text-sm font-medium">
+                    A melhor e mais cremosa comfort food do Brasil. Venha se deliciar com as receitas assinadas pelo Chef Tato!
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 bg-cream/10 hover:bg-cream/20 rounded-full flex items-center justify-center text-cream border-2 border-cream transition-colors">
+                        <i class="fa-brands fa-instagram text-lg"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-cream/10 hover:bg-cream/20 rounded-full flex items-center justify-center text-cream border-2 border-cream transition-colors">
+                        <i class="fa-brands fa-facebook text-lg"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-cream/10 hover:bg-cream/20 rounded-full flex items-center justify-center text-cream border-2 border-cream transition-colors">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Links Rápidos -->
+            <div class="md:col-span-3 space-y-4">
+                <h4 class="font-brand text-xl text-cheddar">Menu Rápido</h4>
+                <ul class="space-y-2 text-sm font-medium text-cream/80">
+                    <li><a href="#inicio" class="hover:underline hover:text-white">Início</a></li>
+                    <li><a href="#cardapio" class="hover:underline hover:text-white">Cardápio Interativo</a></li>
+                    <li><a href="#tato" class="hover:underline hover:text-white">Nosso Mascote</a></li>
+                    <li><a href="#sobre" class="hover:underline hover:text-white">Sobre a Batatosa</a></li>
+                </ul>
+            </div>
+
+            <!-- Funcionamento e Contato -->
+            <div class="md:col-span-5 space-y-4">
+                <h4 class="font-brand text-xl text-cheddar">Funcionamento & Endereço</h4>
+                <div class="space-y-2 text-sm font-medium text-cream/80">
+                    <p class="flex items-center gap-2">
+                        <i class="fa-solid fa-clock text-cheddar"></i> Terça a Domingo - das 18:00 às 23:30
+                    </p>
+                    <p class="flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-cheddar"></i> Avenida do Purê Cremoso, 123 - Bairro Cheddarville
+                    </p>
+                    <p class="flex items-center gap-2">
+                        <i class="fa-solid fa-phone text-cheddar"></i> (11) 99999-8888 (WhatsApp)
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Créditos Finais -->
+        <div class="text-center text-xs font-bold text-cream/60 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>© 2026 Batatosa Ltda. Todos os direitos reservados.</p>
+            <p>Criado com amor, requeijão e muita manteiga! 🥔🧀</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Script da Lógica Dinâmica da Aplicação -->
+<script>
+    // Banco de Dados de Produtos (Cardápio)
+    const menuItems = [
+        {
+            id: 'bat-01',
+            nome: 'Batatosa Suprema',
+            descricao: 'Batata gigante com recheio cremoso de carne seca desfiada na manteiga de garrafa, requeijão original, muçarela e couve frita crocante.',
+            preco: 36.90,
+            categoria: 'premium',
+            imagem: 'https://placehold.co/400x300/FFA800/FFFFFF?text=Carne+Seca',
+            tag: 'Mais Vendida 👑'
+        },
+        {
+            id: 'bat-02',
+            nome: 'Cheddar Explosion',
+            descricao: 'Um sonho para os amantes de queijo! Blend especial de queijo cheddar artesanal derretido, tiras de bacon crocante e cubinhos de batata rústica frita.',
+            preco: 34.90,
+            categoria: 'premium',
+            imagem: 'https://placehold.co/400x300/C8102E/FFFFFF?text=Cheddar+Bacon',
+            tag: 'A Queridinha'
+        },
+        {
+            id: 'bat-03',
+            nome: 'Strogonoff do Tato',
+            descricao: 'Nossa famosa batata com estrogonoff clássico de peito de frango super macio, champignon fresco, molho de tomate caseiro e muita batata palha por cima.',
+            preco: 29.90,
+            categoria: 'classicas',
+            imagem: 'https://placehold.co/400x300/5C3A21/FFFFFF?text=Strogonoff',
+            tag: 'Clássico Rústico'
+        },
+        {
+            id: 'bat-04',
+            nome: 'Frango com Requeijão Real',
+            descricao: 'Peito de frango temperado com ervas finas e desfiado fininho, misturado ao requeijão cremoso da casa e finalizado com milho verde crocante.',
+            preco: 28.90,
+            categoria: 'classicas',
+            imagem: 'https://placehold.co/400x300/FFA800/FFFFFF?text=Frango+Catupiry',
+            tag: 'Sem Erro'
+        },
+        {
+            id: 'bat-05',
+            nome: 'Veggie-Melic',
+            descricao: 'Uma opção super leve e saborosa! Buquês de brócolis frescos puxados no alho, creme de queijo branco caseiro, milho e batata palha.',
+            preco: 31.90,
+            categoria: 'veggie',
+            imagem: 'https://placehold.co/400x300/4ADE80/FFFFFF?text=Veggie+Brocolis',
+            tag: 'Saboroso & Leve'
+        },
+        {
+            id: 'bat-06',
+            nome: 'Quatro Queijos do Chef',
+            descricao: 'Para os apaixonados por queijo: fusão perfeita de muçarela, provolone defumado, requeijão cremoso e uma pitada sutil de gorgonzola.',
+            preco: 33.90,
+            categoria: 'veggie',
+            imagem: 'https://placehold.co/400x300/FDFBF7/5C3A21?text=4+Queijos',
+            tag: 'Pura Cremosidade'
+        }
+    ];
+
+    // Frases divertidas que o Tato pode dizer
+    const tatoQuotes = [
+        "\"A casquinha rústica é onde está o sabor mais caseiro!\" 🥔",
+        "\"Cuidado ao morder rápido, eu sou muito recheado e quentinho!\" 🔥",
+        "\"Dica do Tato: Peça a Cheddar Explosion com dose dupla de bacon!\" 🥓",
+        "\"Todas as minhas batatas vêm com abraço virtual incluso na embalagem!\" 🤗",
+        "\"Se queijo derretido é um problema, eu sou o solucionador!\" 🧀",
+        "\"Você sabia que lavo cada batata gigante à mão com escovinha? Carinho puro!\" 👨‍🍳"
+    ];
+
+    // Estado Geral da Sacola de Compras (Carrinho)
+    let cart = [];
+    let activeCategory = 'todas';
+    let currentDeliveryRate = 0;
+
+    // Renderiza os produtos no Grid
+    function renderMenu() {
+        const grid = document.getElementById('menu-grid');
+        grid.innerHTML = '';
+
+        const filtered = activeCategory === 'todas' 
+            ? menuItems 
+            : menuItems.filter(item => item.categoria === activeCategory);
+
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = "bg-cream p-4 rounded-3xl border-4 border-rust shadow-cartoon hover:translate-y-[-4px] hover:shadow-cartoon-lg transition-all flex flex-col justify-between";
+            
+            card.innerHTML = `
+                <div>
+                    <!-- Imagem com fallback -->
+                    <div class="w-full h-48 rounded-2xl border-2 border-rust overflow-hidden mb-4 relative">
+                        <img src="${item.imagem}" alt="${item.nome}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300/CCCCCC/666666?text=Delicia+Batatosa'">
+                        <span class="absolute top-2 left-2 bg-paprika text-white font-bold text-xs px-3 py-1 rounded-full border-2 border-rust">
+                            ${item.tag}
+                        </span>
+                    </div>
+
+                    <!-- Informações do Item -->
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between items-start gap-2">
+                            <h3 class="text-xl font-bold text-rust leading-tight">${item.nome}</h3>
+                            <span class="text-lg font-bold text-paprika whitespace-nowrap">R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                        <p class="text-xs text-rust/80 font-medium leading-relaxed">${item.descricao}</p>
+                    </div>
+                </div>
+
+                <!-- Botão de Ação -->
+                <button onclick="addToCart('${item.id}')" class="w-full bg-cheddar hover:bg-amber-400 text-rust font-bold py-2.5 rounded-xl border-2 border-rust shadow-cartoon-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cart-plus"></i> Adicionar à Sacola
+                </button>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // Filtra a categoria selecionada e atualiza os botões do DOM
+    function filterMenu(category) {
+        activeCategory = category;
+        
+        // Remove estado ativo de todos os botões de filtro
+        document.querySelectorAll('[id^="btn-cat-"]').forEach(btn => {
+            btn.className = "menu-tab-inactive font-brand text-lg px-6 py-3 rounded-2xl border-2 border-rust transition-all flex items-center gap-2";
+        });
+
+        // Adiciona estado ativo ao botão selecionado
+        const activeBtn = document.getElementById(`btn-cat-${category}`);
+        if(activeBtn) {
+            activeBtn.className = "menu-tab-active font-brand text-lg px-6 py-3 rounded-2xl border-2 border-rust transition-all flex items-center gap-2";
+        }
+
+        renderMenu();
+    }
+
+    // Controle do Menu Mobile
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.getElementById('menu-icon');
+        
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+            icon.className = "fa-solid fa-xmark";
+        } else {
+            menu.classList.add('hidden');
+            icon.className = "fa-solid fa-bars";
+        }
+    }
+
+    // Abre/Fecha a Sacola lateral (Drawer)
+    function toggleCart() {
+        const drawer = document.getElementById('cart-drawer');
+        const overlay = document.getElementById('cart-overlay');
+        
+        if(drawer.classList.contains('translate-x-full')) {
+            drawer.classList.remove('translate-x-full');
+            overlay.classList.remove('hidden');
+        } else {
+            drawer.classList.add('translate-x-full');
+            overlay.classList.add('hidden');
+        }
+    }
+
+    // Adiciona Item ao Carrinho
+    function addToCart(id) {
+        const product = menuItems.find(item => item.id === id);
+        if(!product) return;
+
+        const existing = cart.find(item => item.id === id);
+        if(existing) {
+            existing.qty += 1;
+        } else {
+            cart.push({ ...product, qty: 1 });
+        }
+
+        updateCartUI();
+        showToast("Delícia Adicionada!", `A deliciosa "${product.nome}" foi colocada na sua sacola!`, 'cheddar');
+    }
+
+    // Remove Item do Carrinho
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id !== id);
+        updateCartUI();
+        showToast("Item Removido", "O item foi removido da sua sacola.", 'paprika');
+    }
+
+    // Altera Quantidade do Item
+    function updateQty(id, change) {
+        const item = cart.find(item => item.id === id);
+        if(!item) return;
+
+        item.qty += change;
+        if(item.qty <= 0) {
+            cart = cart.filter(p => p.id !== id);
+        }
+        updateCartUI();
+    }
+
+    // Atualiza todos os elementos visuais da Sacola
+    function updateCartUI() {
+        const containerList = document.getElementById('cart-items-list');
+        const emptyMsg = document.getElementById('cart-empty-message');
+        const badge = document.getElementById('cart-count-badge');
+        
+        // Contagem de Itens totais
+        const totalCount = cart.reduce((acc, curr) => acc + curr.qty, 0);
+        badge.innerText = totalCount;
+
+        // Limpa lista atual
+        containerList.innerHTML = '';
+
+        if(cart.length === 0) {
+            emptyMsg.classList.remove('hidden');
+            document.getElementById('cart-subtotal').innerText = 'R$ 0,00';
+            document.getElementById('cart-total').innerText = 'R$ 0,00';
+            return;
+        }
+
+        emptyMsg.classList.add('hidden');
+
+        let subtotal = 0;
+
+        cart.forEach(item => {
+            const itemCost = item.preco * item.qty;
+            subtotal += itemCost;
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = "bg-cream-dark p-3 rounded-xl border-2 border-rust flex gap-3 items-center justify-between";
+            itemDiv.innerHTML = `
+                <div class="flex-1">
+                    <h4 class="font-bold text-rust text-xs sm:text-sm leading-tight">${item.nome}</h4>
+                    <span class="text-xs text-paprika font-bold">R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="updateQty('${item.id}', -1)" class="w-6 h-6 bg-cream border border-rust rounded-full font-bold text-xs flex items-center justify-center hover:bg-red-100">-</button>
+                    <span class="text-xs font-extrabold text-rust">${item.qty}</span>
+                    <button onclick="updateQty('${item.id}', 1)" class="w-6 h-6 bg-cream border border-rust rounded-full font-bold text-xs flex items-center justify-center hover:bg-amber-100">+</button>
+                </div>
+                <button onclick="removeFromCart('${item.id}')" class="text-rust/40 hover:text-paprika p-1 text-sm">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            `;
+            containerList.appendChild(itemDiv);
+        });
+
+        // Totais finais
+        document.getElementById('cart-subtotal').innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+        
+        const finalTotal = subtotal + currentDeliveryRate;
+        document.getElementById('cart-total').innerText = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+    }
+
+    // Simula a Calculadora de Frete da Seção de Sobre Nós
+    function calcularFrete() {
+        const select = document.getElementById('bairro-select');
+        const val = select.value;
+        const resDiv = document.getElementById('frete-resultado');
+        
+        if(!val) {
+            resDiv.classList.add('hidden');
+            currentDeliveryRate = 0;
+            updateCartUI();
+            return;
+        }
+
+        resDiv.classList.remove('hidden');
+        resDiv.classList.add('animate-pulse');
+
+        const tempoSpan = document.getElementById('frete-tempo');
+        const valorSpan = document.getElementById('frete-valor');
+        const shippingCartText = document.getElementById('cart-shipping');
+
+        let tempo = '';
+        let taxaText = '';
+        let taxaValor = 0;
+
+        switch(val) {
+            case 'centro':
+                tempo = '15-25 min';
+                taxaText = 'Grátis';
+                taxaValor = 0;
+                break;
+            case 'jardins':
+                tempo = '25-35 min';
+                taxaText = 'R$ 4,00';
+                taxaValor = 4.00;
+                break;
+            case 'oeste':
+                tempo = '35-45 min';
+                taxaText = 'R$ 7,00';
+                taxaValor = 7.00;
+                break;
+            case 'sul':
+                tempo = '40-50 min';
+                taxaText = 'R$ 8,50';
+                taxaValor = 8.50;
+                break;
+            case 'leste':
+                tempo = '30-40 min';
+                taxaText = 'R$ 5,00';
+                taxaValor = 5.00;
+                break;
+        }
+
+        setTimeout(() => {
+            resDiv.classList.remove('animate-pulse');
+            tempoSpan.innerText = tempo;
+            valorSpan.innerText = taxaText;
+            
+            // Sincroniza taxa com a Sacola
+            currentDeliveryRate = taxaValor;
+            shippingCartText.innerText = taxaValor === 0 ? "Grátis" : `R$ ${taxaValor.toFixed(2).replace('.', ',')}`;
+            updateCartUI();
+        }, 300);
+    }
+
+    // Gera o link para finalizar no WhatsApp simulado
+    function sendOrderToWhatsApp() {
+        if(cart.length === 0) {
+            showToast("Sacola Vazia!", "Adicione pelo menos uma batatosa deliciosa para fazer o pedido.", "paprika");
+            return;
+        }
+
+        const nome = document.getElementById('order-name').value.trim();
+        const endereco = document.getElementById('order-address').value.trim();
+
+        if(!nome || !endereco) {
+            showToast("Dados Incompletos", "Por favor, preencha seu Nome e Endereço para podermos entregar!", "paprika");
+            return;
+        }
+
+        let totalGeral = 0;
+        let mensagem = `Olá, Batatosa! Gostaria de fazer o seguinte pedido do site:\n\n`;
+        mensagem += `*Cliente:* ${nome}\n`;
+        mensagem += `*Endereço:* ${endereco}\n\n`;
+        mensagem += `*--- ITENS DO PEDIDO ---*\n`;
+
+        cart.forEach(item => {
+            const cost = item.preco * item.qty;
+            totalGeral += cost;
+            mensagem += `• ${item.qty}x ${item.nome} - R$ ${cost.toFixed(2).replace('.', ',')}\n`;
+        });
+
+        mensagem += `\n*Subtotal:* R$ ${totalGeral.toFixed(2).replace('.', ',')}\n`;
+        if(currentDeliveryRate > 0) {
+            mensagem += `*Taxa de Entrega:* R$ ${currentDeliveryRate.toFixed(2).replace('.', ',')}\n`;
+            totalGeral += currentDeliveryRate;
+        } else {
+            mensagem += `*Taxa de Entrega:* Grátis\n`;
+        }
+        mensagem += `*TOTAL ESTIMADO:* R$ ${totalGeral.toFixed(2).replace('.', ',')}\n\n`;
+        mensagem += `*Forma de pagamento sugerida:* Cartão ou Pix na entrega.\n`;
+        mensagem += `Aguardando a confirmação do Tato! 🥔🍳`;
+
+        // Codifica a mensagem para envio HTTP url-safe
+        const encodedText = encodeURIComponent(mensagem);
+        const whatsappNumber = "5511999998888"; // Número fictício do restaurante do Tato
+        const url = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
+
+        // Redireciona para o WhatsApp
+        window.open(url, '_blank');
+    }
+
+    // Mostra um Toast customizado bonitinho
+    function showToast(title, msg, color) {
+        const toast = document.getElementById('custom-toast');
+        const iconBg = document.getElementById('toast-icon-bg');
+        const icon = document.getElementById('toast-icon');
+        const titleEl = document.getElementById('toast-title');
+        const msgEl = document.getElementById('toast-message');
+
+        titleEl.innerText = title;
+        msgEl.innerText = msg;
+
+        if (color === 'cheddar') {
+            iconBg.className = "w-10 h-10 rounded-full border-2 border-rust flex items-center justify-center text-lg text-rust bg-cheddar";
+            icon.className = "fa-solid fa-face-smile";
+        } else {
+            iconBg.className = "w-10 h-10 rounded-full border-2 border-rust flex items-center justify-center text-lg text-white bg-paprika";
+            icon.className = "fa-solid fa-triangle-exclamation";
+        }
+
+        // Transiciona e exibe na tela
+        toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-12');
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+        // Esconde após 3.5 segundos
+        setTimeout(() => {
+            toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-12');
+            toast.classList.remove('opacity-100', 'translate-y-0');
+        }, 3500);
+    }
+
+    // Altera dinamicamente as frases do Mascote Tato na seção dedicada
+    function changeTatoQuote() {
+        const randIndex = Math.floor(Math.random() * tatoQuotes.length);
+        const speechBubble = document.getElementById('tato-speech');
+        
+        // Efeito sutil de fade
+        speechBubble.style.opacity = 0;
+        setTimeout(() => {
+            speechBubble.innerText = tatoQuotes[randIndex];
+            speechBubble.style.opacity = 1;
+        }, 150);
+    }
+
+    // Carregamento Inicial do Site
+    window.onload = function () {
+        renderMenu();
+        updateCartUI();
+    }
+</script>
+</body>
+</html>
